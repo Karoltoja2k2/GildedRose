@@ -8,9 +8,9 @@ namespace GildedRoseKata
     {
         public const int NormalItemQualityDecrease = -1;
 
-        public const int NonLegendaryItemMinQualityValue = 0;
+        public const int NonLegendaryItemMinQuality = 0;
 
-        public const int NonLegendaryItemMaxQualityValue = 50;
+        public const int NonLegendaryItemMaxQuality = 50;
 
         private readonly IItemService itemService;
 

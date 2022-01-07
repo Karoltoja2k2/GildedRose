@@ -3,7 +3,7 @@
     internal class DefaultItemQualityHandler : IItemQualityHandler
     {
         const int QualityDecrease = GildedRose.NormalItemQualityDecrease;
-        const int MinQuality = GildedRose.NonLegendaryItemMinQualityValue;
+        const int MinQuality = GildedRose.NonLegendaryItemMinQuality;
 
         public void UpdateItem(Item item)
         {
@@ -23,7 +23,7 @@
 
         private static bool MinQualityReached(Item item)
         {
-            return item.Quality <= GildedRose.NonLegendaryItemMinQualityValue;
+            return item.Quality <= GildedRose.NonLegendaryItemMinQuality;
         }
     }
 }

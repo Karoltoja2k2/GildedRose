@@ -3,7 +3,7 @@
     internal class BrieLikeItemQualityHandler : IItemQualityHandler
     {
         const int DefaultQualityIncrease = 1;
-        const int MaxQuality = GildedRose.NonLegendaryItemMaxQualityValue;
+        const int MaxQuality = GildedRose.NonLegendaryItemMaxQuality;
 
         public void UpdateItem(Item item)
         {

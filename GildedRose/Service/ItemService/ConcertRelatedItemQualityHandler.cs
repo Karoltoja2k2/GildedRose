@@ -7,8 +7,8 @@
         const int DefaultQualityIncrease = 1;
         const int FirstThresholdQualityIncrease = 2;
         const int SecondThresholdQualityIncrease = 3;
-        const int MaxQuality = GildedRose.NonLegendaryItemMaxQualityValue;
-        const int MinQuality = GildedRose.NonLegendaryItemMinQualityValue;
+        const int MaxQuality = GildedRose.NonLegendaryItemMaxQuality;
+        const int MinQuality = GildedRose.NonLegendaryItemMinQuality;
 
         public void UpdateItem(Item item)
         {

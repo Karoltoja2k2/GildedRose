@@ -1,7 +1,6 @@
 ﻿using Xunit;
 using System.Collections.Generic;
 using GildedRoseKata;
-using Moq;
 using GildedRoseKata.Service.ItemService;
 
 namespace GildedRoseTests
