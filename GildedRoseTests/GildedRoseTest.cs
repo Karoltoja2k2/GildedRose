@@ -6,6 +6,22 @@ namespace GildedRoseTests
 {
     public class GildedRoseTest
     {
+        [Theory]
+        [InlineData(5, 8)]
+        [InlineData(0, 6)]
+        public void UpdateQuality_ShouldDecreaseQuality_WhenItemIsConjured(int sellIn, int expectedQuality)
+        {
+            // Arrange
+            IList<Item> Items = new List<Item> { new Item { Name = "Conjured Mana Cake", SellIn = sellIn, Quality = 10 } };
+            GildedRose app = new GildedRose(Items);
+
+            // Act
+            app.UpdateQuality();
+
+            // Assert
+            Assert.Equal(expectedQuality, Items[0].Quality);
+        }
+
         [Fact]
         public void UpdateQuality_ShouldIncreaseQuality_WhenItemIsAgedBrie()
         {
