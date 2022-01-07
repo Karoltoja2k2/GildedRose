@@ -118,7 +118,7 @@ namespace GildedRoseTests
         [InlineData("+5 Dexterity Vest", 10)]
         [InlineData("any item", 10)]
 
-        public void UpdateQuality_ShouldUpdateQualityTwiceFast_WhenItExceededSellInDate(string itemName, int quality)
+        public void UpdateQuality_ShouldDecreaseQualityTwiceFast_WhenItExceededSellInDate(string itemName, int quality)
         {
             // Arrange
             IList<Item> Items = new List<Item> { new Item { Name = itemName, SellIn = 0, Quality = quality } };
