@@ -1,5 +1,4 @@
 ﻿using GildedRoseKata.Model;
-using System.Collections.Generic;
 
 namespace GildedRoseKata.Service.ItemService
 {
