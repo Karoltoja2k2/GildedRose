@@ -2,37 +2,61 @@
 {
     internal class ConcertRelatedItemQualityHandler : IItemQualityHandler
     {
+        const int SellInFirstThreshold = 10;
+        const int SellInSecondThreshold = 5;
+        const int DefaultQualityIncrease = 1;
+        const int FirstThresholdQualityIncrease = 2;
+        const int SecondThresholdQualityIncrease = 3;
+        const int MaxQuality = GildedRose.NonLegendaryItemMaxQualityValue;
+        const int MinQuality = GildedRose.NonLegendaryItemMinQualityValue;
+
         public void UpdateItem(Item item)
         {
-            const int SellInFirstThreshold = 11;
-            const int SellInSecondThreshold = 6;
+            item.DecreaseSellIn();
 
-            item.SellIn += GildedRose.DefaultSellInModifierValue;
-            if (item.SellIn < 0)
+            if (PassedConcert(item))
             {
-                item.Quality = GildedRose.NonLegendaryItemMinQualityValue;
+                item.SetQualityValue(MinQuality);
+                return;
             }
-            else
+
+            if (MaxQualityReached(item))
             {
-                if (item.Quality < GildedRose.NonLegendaryItemMaxQualityValue)
-                {
-                    item.Quality = item.Quality + GildedRose.DefaultQualityModifierAbsValue;
-                    if (item.SellIn < SellInFirstThreshold)
-                    {
-                        item.Quality = item.Quality + GildedRose.DefaultQualityModifierAbsValue;
-                    }
-
-                    if (item.SellIn < SellInSecondThreshold)
-                    {
-                        item.Quality = item.Quality + GildedRose.DefaultQualityModifierAbsValue;
-                    }
-
-                    if (item.Quality > GildedRose.NonLegendaryItemMaxQualityValue)
-                    {
-                        item.Quality = GildedRose.NonLegendaryItemMaxQualityValue;
-                    }
-                }
+                return;
             }
+
+            int qualityIncrease = ResolveQualityIncrease(item);
+            item.IncreaseQuality(qualityIncrease);
+            if (MaxQualityReached(item))
+            {
+                item.SetQualityValue(MaxQuality);
+            }
+        }
+
+        private static int ResolveQualityIncrease(Item item)
+        {
+            var qualityIncrease = DefaultQualityIncrease;
+            switch (item.SellIn)
+            {
+                case <= SellInSecondThreshold:
+                    qualityIncrease = SecondThresholdQualityIncrease;
+                    break;
+                case <= SellInFirstThreshold:
+                    qualityIncrease = FirstThresholdQualityIncrease;
+                    break;
+            }
+
+            return qualityIncrease;
+        }
+
+        private static bool MaxQualityReached(Item item)
+        {
+            return item.Quality >= MaxQuality;
+        }
+
+        private static bool PassedConcert(Item item)
+        {
+            return item.SellIn < 0;
         }
     }
 }

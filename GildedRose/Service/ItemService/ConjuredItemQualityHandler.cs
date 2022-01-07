@@ -2,15 +2,28 @@
 {
     internal class ConjuredItemQualityHandler : IItemQualityHandler
     {
+        const int QualityDecrease = GildedRose.NormalItemQualityDecrease;
+        const int MinQuality = GildedRose.NonLegendaryItemMinQualityValue;
+
         public void UpdateItem(Item item)
         {
-            item.SellIn += GildedRose.DefaultSellInModifierValue;
-            var qualityModifier = (item.SellIn < 0 ? GildedRose.DefaultQualityModifierAbsValue + 1 : GildedRose.DefaultQualityModifierAbsValue) * 2;
-            item.Quality -= qualityModifier;
-            if (item.Quality < GildedRose.NonLegendaryItemMinQualityValue)
+            item.DecreaseSellIn();
+            if (MinQualityReached(item))
             {
-                item.Quality = GildedRose.NonLegendaryItemMinQualityValue;
+                return;
             }
+
+            var qualityModifier = (item.SellIn < 0 ? QualityDecrease * 2 : QualityDecrease) * 2;
+            item.DecreaseQuality(qualityModifier);
+            if (MinQualityReached(item))
+            {
+                item.SetQualityValue(MinQuality);
+            }
+        }
+
+        private static bool MinQualityReached(Item item)
+        {
+            return item.Quality < GildedRose.NonLegendaryItemMinQualityValue;
         }
     }
 }

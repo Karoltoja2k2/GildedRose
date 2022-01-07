@@ -1,15 +1,12 @@
 ﻿using GildedRoseKata.Service.ItemService;
 using GildedRoseKata.Service;
 using System.Collections.Generic;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace GildedRoseKata
 {
     public class GildedRose
     {
-        public const int DefaultQualityModifierAbsValue = 1;
-
-        public const int DefaultSellInModifierValue = -1;
+        public const int NormalItemQualityDecrease = -1;
 
         public const int NonLegendaryItemMinQualityValue = 0;
 

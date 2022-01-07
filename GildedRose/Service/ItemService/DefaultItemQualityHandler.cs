@@ -2,20 +2,28 @@
 {
     internal class DefaultItemQualityHandler : IItemQualityHandler
     {
+        const int QualityDecrease = GildedRose.NormalItemQualityDecrease;
+        const int MinQuality = GildedRose.NonLegendaryItemMinQualityValue;
+
         public void UpdateItem(Item item)
         {
-            item.SellIn += GildedRose.DefaultSellInModifierValue;
-            item.Quality = item.Quality - GildedRose.DefaultQualityModifierAbsValue;
-            if (item.SellIn < 0)
+            item.DecreaseSellIn();
+            if (MinQualityReached(item))
             {
-                item.Quality = item.Quality - GildedRose.DefaultQualityModifierAbsValue;
-
+                return;
             }
 
-            if (item.Quality < GildedRose.NonLegendaryItemMinQualityValue)
+            var qualityModifier = item.SellIn < 0 ? QualityDecrease * 2 : QualityDecrease;
+            item.DecreaseQuality(qualityModifier);
+            if (MinQualityReached(item))
             {
-                item.Quality = GildedRose.NonLegendaryItemMinQualityValue;
+                item.SetQualityValue(MinQuality);
             }
+        }
+
+        private static bool MinQualityReached(Item item)
+        {
+            return item.Quality <= GildedRose.NonLegendaryItemMinQualityValue;
         }
     }
 }

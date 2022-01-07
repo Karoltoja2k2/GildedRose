@@ -2,19 +2,33 @@
 {
     internal class BrieLikeItemQualityHandler : IItemQualityHandler
     {
+        const int DefaultQualityIncrease = 1;
+        const int MaxQuality = GildedRose.NonLegendaryItemMaxQualityValue;
+
         public void UpdateItem(Item item)
         {
-            item.SellIn += GildedRose.DefaultSellInModifierValue;
-            item.Quality = item.Quality + GildedRose.DefaultQualityModifierAbsValue;
-            if (item.SellIn < 0)
+            item.DecreaseSellIn();
+            if (MaxQualityReached(item))
             {
-                item.Quality += GildedRose.DefaultQualityModifierAbsValue;
+                return;
             }
 
-            if (item.Quality > GildedRose.NonLegendaryItemMaxQualityValue)
+            var qualityIncrease = IsSellInDateExceeded(item) ? DefaultQualityIncrease * 2 : DefaultQualityIncrease;
+            item.IncreaseQuality(qualityIncrease);
+            if (MaxQualityReached(item))
             {
-                item.Quality = GildedRose.NonLegendaryItemMaxQualityValue;
+                item.SetQualityValue(MaxQuality);
             }
+        }
+
+        private bool MaxQualityReached(Item item)
+        {
+            return item.Quality >= MaxQuality;
+        }
+
+        private bool IsSellInDateExceeded(Item item)
+        {
+            return item.SellIn < 0;
         }
     }
 }
