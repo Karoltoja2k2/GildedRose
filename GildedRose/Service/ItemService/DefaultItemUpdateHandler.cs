@@ -1,6 +1,9 @@
-﻿namespace GildedRoseKata.Service.ItemService
+﻿using GildedRoseKata.Model;
+
+namespace GildedRoseKata.Service.ItemService
 {
-    internal class ConjuredItemQualityHandler : IItemQualityHandler
+    [ItemUpdateHandler(ItemCategory.Default)]
+    public class DefaultItemUpdateHandler : IItemUpdateHandler
     {
         const int QualityDecrease = GildedRose.NormalItemQualityDecrease;
         const int MinQuality = GildedRose.NonLegendaryItemMinQuality;
@@ -13,7 +16,7 @@
                 return;
             }
 
-            var qualityModifier = (item.SellIn < 0 ? QualityDecrease * 2 : QualityDecrease) * 2;
+            var qualityModifier = item.SellIn < 0 ? QualityDecrease * 2 : QualityDecrease;
             item.DecreaseQuality(qualityModifier);
             if (MinQualityReached(item))
             {
@@ -23,7 +26,7 @@
 
         private static bool MinQualityReached(Item item)
         {
-            return item.Quality < GildedRose.NonLegendaryItemMinQuality;
+            return item.Quality <= GildedRose.NonLegendaryItemMinQuality;
         }
     }
 }

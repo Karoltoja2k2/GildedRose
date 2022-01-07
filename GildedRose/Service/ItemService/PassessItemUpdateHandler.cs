@@ -1,6 +1,9 @@
-﻿namespace GildedRoseKata.Service.ItemService
+﻿using GildedRoseKata.Model;
+
+namespace GildedRoseKata.Service.ItemService
 {
-    internal class ConcertRelatedItemQualityHandler : IItemQualityHandler
+    [ItemUpdateHandler(ItemCategory.Passess)]
+    public class PassessItemUpdateHandler : IItemUpdateHandler
     {
         const int SellInFirstThreshold = 10;
         const int SellInSecondThreshold = 5;

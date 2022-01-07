@@ -1,6 +1,9 @@
-﻿namespace GildedRoseKata.Service.ItemService
+﻿using GildedRoseKata.Model;
+
+namespace GildedRoseKata.Service.ItemService
 {
-    internal class BrieLikeItemQualityHandler : IItemQualityHandler
+    [ItemUpdateHandler(ItemCategory.Aged)]
+    public class AgedItemUpdateHandler : IItemUpdateHandler
     {
         const int DefaultQualityIncrease = 1;
         const int MaxQuality = GildedRose.NonLegendaryItemMaxQuality;

@@ -1,6 +1,9 @@
-﻿namespace GildedRoseKata.Service.ItemService
+﻿using GildedRoseKata.Model;
+
+namespace GildedRoseKata.Service.ItemService
 {
-    internal class LegendaryItemQualityHandler : IItemQualityHandler
+    [ItemUpdateHandler(ItemCategory.Legendary)]
+    public class LegendaryItemQualityHandler : IItemUpdateHandler
     {
         public void UpdateItem(Item item)
         {

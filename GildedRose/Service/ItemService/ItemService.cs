@@ -1,17 +1,13 @@
-﻿namespace GildedRoseKata.Service.ItemService
+﻿using GildedRoseKata.DataLayer;
+using GildedRoseKata.Model;
+
+namespace GildedRoseKata.Service.ItemService
 {
     public class ItemService : IItemService
     {
-        private readonly ItemQualityHandlerStorage _storage;
-
-        public ItemService(ItemQualityHandlerStorage storage)
+        public void UpdateItem(Item item, ItemCategory category)
         {
-            _storage = storage;
-        }
-
-        public void UpdateItem(Item item)
-        {
-            var handler = _storage.GetHandler(item.Name);
+            var handler = ItemUpdateHandlerStorage.GetHandler(category);
             handler.UpdateItem(item);
         }
     }

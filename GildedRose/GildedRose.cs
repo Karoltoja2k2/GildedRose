@@ -1,6 +1,9 @@
 ﻿using GildedRoseKata.Service.ItemService;
 using GildedRoseKata.Service;
 using System.Collections.Generic;
+using GildedRoseKata.DataLayer;
+using System;
+using Serilog;
 
 namespace GildedRoseKata
 {
@@ -14,15 +17,20 @@ namespace GildedRoseKata
 
         private readonly IItemService itemService;
 
+        private readonly ICategoryRepository categoryRepository;
+
         IList<Item> Items;
 
-        public GildedRose(IList<Item> Items, IItemService itemService)
+        public GildedRose(IList<Item> Items,
+            IItemService itemService,
+            ICategoryRepository categoryRepository)
         {
             this.Items = Items;
             this.itemService = itemService;
+            this.categoryRepository = categoryRepository;
         }
 
-        public GildedRose(IList<Item> Items) : this (Items, new ItemService(new ItemQualityHandlerStorage()))
+        public GildedRose(IList<Item> Items) : this (Items, new ItemService(), new CategoryRepository())
         {
         }
 
@@ -30,7 +38,15 @@ namespace GildedRoseKata
         {
             foreach (var item in Items)
             {
-                itemService.UpdateItem(item);
+                try
+                {
+                    var category = categoryRepository.GetCategory(item.Name);
+                    itemService.UpdateItem(item, category);
+                }
+                catch (Exception ex)
+                {
+                    continue;
+                }
             }
         }
     }

@@ -1,6 +1,6 @@
 ﻿namespace GildedRoseKata.Service.ItemService
 {
-    public interface IItemQualityHandler
+    public interface IItemUpdateHandler
     {
         void UpdateItem(Item item);
     }
