@@ -7,5 +7,6 @@
         Legendary,
         Passess,
         Conjured,
+        Rare,
     }
 }

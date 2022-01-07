@@ -1,5 +1,4 @@
-﻿using GildedRoseKata.DataLayer;
-using GildedRoseKata.Model;
+﻿using GildedRoseKata.Model;
 
 namespace GildedRoseKata.Service.ItemService
 {
@@ -8,7 +7,7 @@ namespace GildedRoseKata.Service.ItemService
         public void UpdateItem(Item item, ItemCategory category)
         {
             var handler = ItemUpdateHandlerStorage.GetHandler(category);
-            handler.UpdateItem(item);
+            handler?.UpdateItem(item);
         }
     }
 }

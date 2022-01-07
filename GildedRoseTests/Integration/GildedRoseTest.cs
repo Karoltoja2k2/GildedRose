@@ -1,9 +1,8 @@
 ﻿using Xunit;
 using System.Collections.Generic;
 using GildedRoseKata;
-using GildedRoseKata.Service.ItemService;
 
-namespace GildedRoseTests
+namespace GildedRoseTests.Integration
 {
     public class GildedRoseTest
     {
@@ -24,7 +23,7 @@ namespace GildedRoseTests
             // Arrange
             items.Clear();
             items.Add(new Item { Name = "Conjured Mana Cake", SellIn = sellIn, Quality = 10 });
-            
+
             // Act
             _sut.UpdateQuality();
 
@@ -38,7 +37,7 @@ namespace GildedRoseTests
             // Arrange
             items.Clear();
             items.Add(new Item { Name = "Aged Brie", SellIn = 5, Quality = 5 });
-            
+
             // Act
             _sut.UpdateQuality();
 
@@ -52,7 +51,7 @@ namespace GildedRoseTests
             // Arrange
             items.Clear();
             items.Add(new Item { Name = "Aged Brie", SellIn = 5, Quality = 5 });
-            
+
             // Act
             _sut.UpdateQuality();
 
@@ -66,7 +65,7 @@ namespace GildedRoseTests
             // Arrange
             items.Clear();
             items.Add(new Item { Name = "Aged Brie", SellIn = 0, Quality = 5 });
-            
+
             // Act
             _sut.UpdateQuality();
 
@@ -80,7 +79,7 @@ namespace GildedRoseTests
             // Arrange
             items.Clear();
             items.Add(new Item { Name = "Sulfuras, Hand of Ragnaros", SellIn = 5, Quality = 80 });
-            
+
             // Act
             _sut.UpdateQuality();
 
@@ -94,7 +93,7 @@ namespace GildedRoseTests
             // Arrange
             items.Clear();
             items.Add(new Item { Name = "Sulfuras, Hand of Ragnaros", SellIn = 5, Quality = 80 });
-            
+
             // Act
             _sut.UpdateQuality();
 
@@ -113,7 +112,7 @@ namespace GildedRoseTests
             // Arrange
             items.Clear();
             items.Add(new Item { Name = "Backstage passes to a TAFKAL80ETC concert", SellIn = sellIn, Quality = 10 });
-            
+
             // Act
             _sut.UpdateQuality();
 
@@ -132,7 +131,7 @@ namespace GildedRoseTests
             // Arrange
             items.Clear();
             items.Add(new Item { Name = itemName, SellIn = sellIn, Quality = quality });
-            
+
             // Act
             _sut.UpdateQuality();
 
@@ -149,7 +148,7 @@ namespace GildedRoseTests
             // Arrange
             items.Clear();
             items.Add(new Item { Name = itemName, SellIn = 0, Quality = quality });
-            
+
             // Act
             _sut.UpdateQuality();
 

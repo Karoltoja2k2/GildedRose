@@ -1,9 +1,6 @@
 ﻿using GildedRoseKata.Service.ItemService;
-using GildedRoseKata.Service;
 using System.Collections.Generic;
 using GildedRoseKata.DataLayer;
-using System;
-using Serilog;
 
 namespace GildedRoseKata
 {
@@ -34,19 +31,15 @@ namespace GildedRoseKata
         {
         }
 
+        /// <summary>
+        ///     Update quality for every item in gilded rose
+        /// </summary>
         public void UpdateQuality()
         {
             foreach (var item in Items)
             {
-                try
-                {
-                    var category = categoryRepository.GetCategory(item.Name);
-                    itemService.UpdateItem(item, category);
-                }
-                catch (Exception ex)
-                {
-                    continue;
-                }
+                var category = categoryRepository.GetCategory(item.Name);
+                itemService.UpdateItem(item, category);
             }
         }
     }

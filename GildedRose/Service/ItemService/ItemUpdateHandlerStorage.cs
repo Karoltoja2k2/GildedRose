@@ -12,29 +12,23 @@ namespace GildedRoseKata.Service.ItemService
         private static Dictionary<ItemCategory, IItemUpdateHandler> LoadHandlers()
         {
             var attrType = typeof(ItemUpdateHandlerAttribute);
-            var handlers = attrType
+            return attrType
                 .Assembly
                 .ExportedTypes
                 .Select(x => ((ItemUpdateHandlerAttribute)Attribute.GetCustomAttribute(x, attrType), x))
-                .Where(x => x.Item1 != null);
-
-            var storageLocal = new Dictionary<ItemCategory, IItemUpdateHandler>();
-            foreach (var item in handlers)
-            {
-                storageLocal.TryAdd(item.Item1.Category, (IItemUpdateHandler)Activator.CreateInstance(item.x));
-            }
-
-            return storageLocal; 
+                .Where(x => x.Item1 != null)
+                .GroupBy(x => x.Item1.Category)
+                .ToDictionary(x => x.Key, x => (IItemUpdateHandler)Activator.CreateInstance(x.First().x));
         }
 
+        /// <summary>
+        ///     Returns handler for item update, based on provided category
+        /// </summary>
+        /// <param name="category"></param>
+        /// <returns></returns>
         public static IItemUpdateHandler GetHandler(ItemCategory category)
         {
-            if (!storage.TryGetValue(category, out var handler))
-            {
-                throw new Exception($"Handler for {category} item category not found");
-            }
-
-            return handler;
+            return storage.GetValueOrDefault(category, null);
         }
     }
 }
