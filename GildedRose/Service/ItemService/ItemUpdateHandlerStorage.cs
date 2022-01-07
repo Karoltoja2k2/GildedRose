@@ -22,13 +22,20 @@ namespace GildedRoseKata.Service.ItemService
         }
 
         /// <summary>
-        ///     Returns handler for item update, based on provided category
+        ///     Returns handler for item update, based on provided item name
         /// </summary>
         /// <param name="category"></param>
         /// <returns></returns>
-        public static IItemUpdateHandler GetHandler(ItemCategory category)
+        public static IItemUpdateHandler GetHandler(string itemName)
         {
-            return storage.GetValueOrDefault(category, null);
+            return itemName switch
+            {
+                "Aged Brie" => storage.GetValueOrDefault(ItemCategory.Aged),
+                "Backstage passes to a TAFKAL80ETC concert" => storage.GetValueOrDefault(ItemCategory.Passess),
+                "Sulfuras, Hand of Ragnaros" => storage.GetValueOrDefault(ItemCategory.Legendary),
+                "Conjured Mana Cake" => storage.GetValueOrDefault(ItemCategory.Conjured),
+                _ => storage.GetValueOrDefault(ItemCategory.Default),
+            };
         }
     }
 }

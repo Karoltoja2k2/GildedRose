@@ -1,6 +1,5 @@
 ﻿using GildedRoseKata.Service.ItemService;
 using System.Collections.Generic;
-using GildedRoseKata.DataLayer;
 
 namespace GildedRoseKata
 {
@@ -14,20 +13,16 @@ namespace GildedRoseKata
 
         private readonly IItemService itemService;
 
-        private readonly ICategoryRepository categoryRepository;
-
         IList<Item> Items;
 
         public GildedRose(IList<Item> Items,
-            IItemService itemService,
-            ICategoryRepository categoryRepository)
+            IItemService itemService)
         {
             this.Items = Items;
             this.itemService = itemService;
-            this.categoryRepository = categoryRepository;
         }
 
-        public GildedRose(IList<Item> Items) : this (Items, new ItemService(), new CategoryRepository())
+        public GildedRose(IList<Item> Items) : this (Items, new ItemService())
         {
         }
 
@@ -38,8 +33,7 @@ namespace GildedRoseKata
         {
             foreach (var item in Items)
             {
-                var category = categoryRepository.GetCategory(item.Name);
-                itemService.UpdateItem(item, category);
+                itemService.UpdateItem(item);
             }
         }
     }

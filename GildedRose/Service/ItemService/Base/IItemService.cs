@@ -1,14 +1,11 @@
-﻿using GildedRoseKata.Model;
-
-namespace GildedRoseKata.Service.ItemService
+﻿namespace GildedRoseKata.Service.ItemService
 {
     public interface IItemService
     {
         /// <summary>
-        ///     Updates item properties based on it's category
+        ///     Updates item properties
         /// </summary>
         /// <param name="item"></param>
-        /// <param name="category"></param>
-        void UpdateItem(Item item, ItemCategory category);
+        void UpdateItem(Item item);
     }
 }
